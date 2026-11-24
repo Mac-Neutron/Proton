@@ -393,7 +393,7 @@ static int load_steamclient(void)
     else
         params.ignore_child_processes = ignore_child_processes;
 
-    if (STEAMCLIENT_CALL( steamclient_init, &params )) return 0;
+    if (steamclient_call( unix_steamclient_init, &params, "steamclient_init" )) return 0;
     if (!wsa_initialized)
     {
         /* Some games depend on winsocks being initialized after initializing Steam API. */
@@ -635,7 +635,7 @@ int8_t CDECL Steam_IsKnownInterface( const char *pchVersion )
 {
     struct steamclient_Steam_IsKnownInterface_params params = {.version = pchVersion};
     TRACE("%s\n", pchVersion);
-    load_steamclient();
+    if (!load_steamclient()) return 0;
     STEAMCLIENT_CALL( steamclient_Steam_IsKnownInterface, &params );
     return params._ret;
 }
@@ -644,12 +644,12 @@ void CDECL Steam_NotifyMissingInterface( int32_t hSteamPipe, const char *pchVers
 {
     struct steamclient_Steam_NotifyMissingInterface_params params = {.pipe = hSteamPipe, .version = pchVersion};
     TRACE("%u %s\n", hSteamPipe, pchVersion);
-    load_steamclient();
+    if (!load_steamclient()) return;
     STEAMCLIENT_CALL( steamclient_Steam_NotifyMissingInterface, &params );
 }
 
 void steamclient_init_registry(void)
 {
     if (!load_steamclient()) return;
-    STEAMCLIENT_CALL( steamclient_init_registry, NULL );
+    steamclient_call( unix_steamclient_init_registry, NULL, "steamclient_init_registry" );
 }

@@ -785,13 +785,17 @@ static NTSTATUS steamclient_init_registry( Params *params, bool wow64 )
     u_ISteamClient_SteamClient017 *client;
     int pipe, user, error;
 
-    if (!p_CreateInterface) return STATUS_DLL_NOT_FOUND;
+    if (!p_CreateInterface)
+    {
+        ERR( "SteamClient CreateInterface not available\n" );
+        return 0;
+    }
 
     client = (u_ISteamClient_SteamClient017 *)p_CreateInterface( "SteamClient017", &error );
     if (!client)
     {
         ERR( "Failed to get SteamClient017\n" );
-        return STATUS_DLL_NOT_FOUND;
+        return 0;
     }
     if (!(pipe = client->CreateSteamPipe()) || !(user = client->ConnectToGlobalUser( pipe )))
     {
