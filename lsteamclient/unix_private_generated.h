@@ -5398,7 +5398,7 @@ struct u_ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized005
     virtual int32_t GetCachedRelayTicket( uint32_t, void *, uint32_t ) = 0;
     virtual void PostConnectionStateMsg( const void *, uint32_t ) = 0;
     virtual int8_t GetSTUNServer( int32_t, char *, uint32_t ) = 0;
-    virtual int8_t AllowDirectConnectToPeer( const SteamNetworkingIdentity_144 * ) = 0;
+    virtual int8_t AllowDirectConnectToPeer( const SteamNetworkingIdentity * ) = 0;
     virtual int8_t BeginAsyncRequestFakeIP( int32_t ) = 0;
 #endif /* __cplusplus */
 };
@@ -5409,7 +5409,7 @@ struct u_ISteamNetworkingSockets_SteamNetworkingSockets002
     virtual uint32_t CreateListenSocketIP( const SteamNetworkingIPAddr * ) = 0;
     virtual uint32_t ConnectByIPAddress( const SteamNetworkingIPAddr * ) = 0;
     virtual uint32_t CreateListenSocketP2P( int32_t ) = 0;
-    virtual uint32_t ConnectP2P( const SteamNetworkingIdentity_144 *, int32_t ) = 0;
+    virtual uint32_t ConnectP2P( const SteamNetworkingIdentity *, int32_t ) = 0;
     virtual uint32_t AcceptConnection( uint32_t ) = 0;
     virtual int8_t CloseConnection( uint32_t, int32_t, const char *, int8_t ) = 0;
     virtual int8_t CloseListenSocket( uint32_t ) = 0;
@@ -5425,11 +5425,11 @@ struct u_ISteamNetworkingSockets_SteamNetworkingSockets002
     virtual int8_t GetQuickConnectionStatus( uint32_t, SteamNetworkingQuickConnectionStatus * ) = 0;
     virtual int32_t GetDetailedConnectionStatus( uint32_t, char *, int32_t ) = 0;
     virtual int8_t GetListenSocketAddress( uint32_t, SteamNetworkingIPAddr * ) = 0;
-    virtual int8_t CreateSocketPair( uint32_t *, uint32_t *, int8_t, const SteamNetworkingIdentity_144 *, const SteamNetworkingIdentity_144 * ) = 0;
-    virtual int8_t GetIdentity( SteamNetworkingIdentity_144 * ) = 0;
+    virtual int8_t CreateSocketPair( uint32_t *, uint32_t *, int8_t, const SteamNetworkingIdentity *, const SteamNetworkingIdentity * ) = 0;
+    virtual int8_t GetIdentity( SteamNetworkingIdentity * ) = 0;
     virtual int8_t ReceivedRelayAuthTicket( const void *, int32_t, SteamDatagramRelayAuthTicket * ) = 0;
-    virtual int32_t FindRelayAuthTicketForServer( const SteamNetworkingIdentity_144 *, int32_t, SteamDatagramRelayAuthTicket * ) = 0;
-    virtual uint32_t ConnectToHostedDedicatedServer( const SteamNetworkingIdentity_144 *, int32_t ) = 0;
+    virtual int32_t FindRelayAuthTicketForServer( const SteamNetworkingIdentity *, int32_t, SteamDatagramRelayAuthTicket * ) = 0;
+    virtual uint32_t ConnectToHostedDedicatedServer( const SteamNetworkingIdentity *, int32_t ) = 0;
     virtual uint16_t GetHostedDedicatedServerPort(  ) = 0;
     virtual uint32_t GetHostedDedicatedServerPOPID(  ) = 0;
     virtual int8_t GetHostedDedicatedServerAddress( SteamDatagramHostedAddress * ) = 0;
@@ -5460,8 +5460,8 @@ struct u_ISteamNetworkingUtils_SteamNetworkingUtils001
     virtual uint32_t GetFirstConfigValue(  ) = 0;
     virtual void SteamNetworkingIPAddr_ToString( const SteamNetworkingIPAddr *, char *, uint32_t, int8_t ) = 0;
     virtual int8_t SteamNetworkingIPAddr_ParseString( SteamNetworkingIPAddr *, const char * ) = 0;
-    virtual void SteamNetworkingIdentity_ToString( const SteamNetworkingIdentity_144 *, char *, uint32_t ) = 0;
-    virtual int8_t SteamNetworkingIdentity_ParseString( SteamNetworkingIdentity_144 *, const char * ) = 0;
+    virtual void SteamNetworkingIdentity_ToString( const SteamNetworkingIdentity *, char *, uint32_t ) = 0;
+    virtual int8_t SteamNetworkingIdentity_ParseString( SteamNetworkingIdentity *, const char * ) = 0;
     virtual ~u_ISteamNetworkingUtils_SteamNetworkingUtils001(  ) = 0;
 #endif /* __cplusplus */
 };
@@ -5556,7 +5556,7 @@ struct u_ISteamNetworkingSockets_SteamNetworkingSockets004
     virtual uint32_t CreateListenSocketIP( const SteamNetworkingIPAddr * ) = 0;
     virtual uint32_t ConnectByIPAddress( const SteamNetworkingIPAddr * ) = 0;
     virtual uint32_t CreateListenSocketP2P( int32_t ) = 0;
-    virtual uint32_t ConnectP2P( const SteamNetworkingIdentity_144 *, int32_t ) = 0;
+    virtual uint32_t ConnectP2P( const SteamNetworkingIdentity *, int32_t ) = 0;
     virtual uint32_t AcceptConnection( uint32_t ) = 0;
     virtual int8_t CloseConnection( uint32_t, int32_t, const char *, int8_t ) = 0;
     virtual int8_t CloseListenSocket( uint32_t ) = 0;
@@ -5572,13 +5572,13 @@ struct u_ISteamNetworkingSockets_SteamNetworkingSockets004
     virtual int8_t GetQuickConnectionStatus( uint32_t, SteamNetworkingQuickConnectionStatus * ) = 0;
     virtual int32_t GetDetailedConnectionStatus( uint32_t, char *, int32_t ) = 0;
     virtual int8_t GetListenSocketAddress( uint32_t, SteamNetworkingIPAddr * ) = 0;
-    virtual int8_t CreateSocketPair( uint32_t *, uint32_t *, int8_t, const SteamNetworkingIdentity_144 *, const SteamNetworkingIdentity_144 * ) = 0;
-    virtual int8_t GetIdentity( SteamNetworkingIdentity_144 * ) = 0;
+    virtual int8_t CreateSocketPair( uint32_t *, uint32_t *, int8_t, const SteamNetworkingIdentity *, const SteamNetworkingIdentity * ) = 0;
+    virtual int8_t GetIdentity( SteamNetworkingIdentity * ) = 0;
     virtual uint32_t InitAuthentication(  ) = 0;
     virtual uint32_t GetAuthenticationStatus( SteamNetAuthenticationStatus_t * ) = 0;
     virtual int8_t ReceivedRelayAuthTicket( const void *, int32_t, SteamDatagramRelayAuthTicket * ) = 0;
-    virtual int32_t FindRelayAuthTicketForServer( const SteamNetworkingIdentity_144 *, int32_t, SteamDatagramRelayAuthTicket * ) = 0;
-    virtual uint32_t ConnectToHostedDedicatedServer( const SteamNetworkingIdentity_144 *, int32_t ) = 0;
+    virtual int32_t FindRelayAuthTicketForServer( const SteamNetworkingIdentity *, int32_t, SteamDatagramRelayAuthTicket * ) = 0;
+    virtual uint32_t ConnectToHostedDedicatedServer( const SteamNetworkingIdentity *, int32_t ) = 0;
     virtual uint16_t GetHostedDedicatedServerPort(  ) = 0;
     virtual uint32_t GetHostedDedicatedServerPOPID(  ) = 0;
     virtual uint32_t GetHostedDedicatedServerAddress( SteamDatagramHostedAddress * ) = 0;
@@ -5610,8 +5610,8 @@ struct u_ISteamNetworkingUtils_SteamNetworkingUtils002
     virtual uint32_t GetFirstConfigValue(  ) = 0;
     virtual void SteamNetworkingIPAddr_ToString( const SteamNetworkingIPAddr *, char *, uint32_t, int8_t ) = 0;
     virtual int8_t SteamNetworkingIPAddr_ParseString( SteamNetworkingIPAddr *, const char * ) = 0;
-    virtual void SteamNetworkingIdentity_ToString( const SteamNetworkingIdentity_144 *, char *, uint32_t ) = 0;
-    virtual int8_t SteamNetworkingIdentity_ParseString( SteamNetworkingIdentity_144 *, const char * ) = 0;
+    virtual void SteamNetworkingIdentity_ToString( const SteamNetworkingIdentity *, char *, uint32_t ) = 0;
+    virtual int8_t SteamNetworkingIdentity_ParseString( SteamNetworkingIdentity *, const char * ) = 0;
     virtual ~u_ISteamNetworkingUtils_SteamNetworkingUtils002(  ) = 0;
 #endif /* __cplusplus */
 };
@@ -5893,7 +5893,7 @@ struct u_ISteamNetworkingSockets_SteamNetworkingSockets006
     virtual uint32_t CreateListenSocketIP( const SteamNetworkingIPAddr *, int32_t, const SteamNetworkingConfigValue_t * ) = 0;
     virtual uint32_t ConnectByIPAddress( const SteamNetworkingIPAddr *, int32_t, const SteamNetworkingConfigValue_t * ) = 0;
     virtual uint32_t CreateListenSocketP2P( int32_t, int32_t, const SteamNetworkingConfigValue_t * ) = 0;
-    virtual uint32_t ConnectP2P( const SteamNetworkingIdentity_144 *, int32_t, int32_t, const SteamNetworkingConfigValue_t * ) = 0;
+    virtual uint32_t ConnectP2P( const SteamNetworkingIdentity *, int32_t, int32_t, const SteamNetworkingConfigValue_t * ) = 0;
     virtual uint32_t AcceptConnection( uint32_t ) = 0;
     virtual int8_t CloseConnection( uint32_t, int32_t, const char *, int8_t ) = 0;
     virtual int8_t CloseListenSocket( uint32_t ) = 0;
@@ -5910,19 +5910,19 @@ struct u_ISteamNetworkingSockets_SteamNetworkingSockets006
     virtual int8_t GetQuickConnectionStatus( uint32_t, SteamNetworkingQuickConnectionStatus * ) = 0;
     virtual int32_t GetDetailedConnectionStatus( uint32_t, char *, int32_t ) = 0;
     virtual int8_t GetListenSocketAddress( uint32_t, SteamNetworkingIPAddr * ) = 0;
-    virtual int8_t CreateSocketPair( uint32_t *, uint32_t *, int8_t, const SteamNetworkingIdentity_144 *, const SteamNetworkingIdentity_144 * ) = 0;
-    virtual int8_t GetIdentity( SteamNetworkingIdentity_144 * ) = 0;
+    virtual int8_t CreateSocketPair( uint32_t *, uint32_t *, int8_t, const SteamNetworkingIdentity *, const SteamNetworkingIdentity * ) = 0;
+    virtual int8_t GetIdentity( SteamNetworkingIdentity * ) = 0;
     virtual uint32_t InitAuthentication(  ) = 0;
     virtual uint32_t GetAuthenticationStatus( SteamNetAuthenticationStatus_t * ) = 0;
     virtual int8_t ReceivedRelayAuthTicket( const void *, int32_t, SteamDatagramRelayAuthTicket * ) = 0;
-    virtual int32_t FindRelayAuthTicketForServer( const SteamNetworkingIdentity_144 *, int32_t, SteamDatagramRelayAuthTicket * ) = 0;
-    virtual uint32_t ConnectToHostedDedicatedServer( const SteamNetworkingIdentity_144 *, int32_t, int32_t, const SteamNetworkingConfigValue_t * ) = 0;
+    virtual int32_t FindRelayAuthTicketForServer( const SteamNetworkingIdentity *, int32_t, SteamDatagramRelayAuthTicket * ) = 0;
+    virtual uint32_t ConnectToHostedDedicatedServer( const SteamNetworkingIdentity *, int32_t, int32_t, const SteamNetworkingConfigValue_t * ) = 0;
     virtual uint16_t GetHostedDedicatedServerPort(  ) = 0;
     virtual uint32_t GetHostedDedicatedServerPOPID(  ) = 0;
     virtual uint32_t GetHostedDedicatedServerAddress( SteamDatagramHostedAddress * ) = 0;
     virtual uint32_t CreateHostedDedicatedServerListenSocket( int32_t, int32_t, const SteamNetworkingConfigValue_t * ) = 0;
     virtual uint32_t GetGameCoordinatorServerLogin( SteamDatagramGameCoordinatorServerLogin *, int32_t *, void * ) = 0;
-    virtual uint32_t ConnectP2PCustomSignaling( u_ISteamNetworkingConnectionCustomSignaling *, const SteamNetworkingIdentity_144 *, int32_t, const SteamNetworkingConfigValue_t * ) = 0;
+    virtual uint32_t ConnectP2PCustomSignaling( u_ISteamNetworkingConnectionCustomSignaling *, const SteamNetworkingIdentity *, int32_t, const SteamNetworkingConfigValue_t * ) = 0;
     virtual int8_t ReceivedP2PCustomSignal( const void *, int32_t, u_ISteamNetworkingCustomSignalingRecvContext * ) = 0;
     virtual ~u_ISteamNetworkingSockets_SteamNetworkingSockets006(  ) = 0;
 #endif /* __cplusplus */
@@ -5951,8 +5951,8 @@ struct u_ISteamNetworkingUtils_SteamNetworkingUtils003
     virtual uint32_t GetFirstConfigValue(  ) = 0;
     virtual void SteamNetworkingIPAddr_ToString( const SteamNetworkingIPAddr *, char *, uint32_t, int8_t ) = 0;
     virtual int8_t SteamNetworkingIPAddr_ParseString( SteamNetworkingIPAddr *, const char * ) = 0;
-    virtual void SteamNetworkingIdentity_ToString( const SteamNetworkingIdentity_144 *, char *, uint32_t ) = 0;
-    virtual int8_t SteamNetworkingIdentity_ParseString( SteamNetworkingIdentity_144 *, const char * ) = 0;
+    virtual void SteamNetworkingIdentity_ToString( const SteamNetworkingIdentity *, char *, uint32_t ) = 0;
+    virtual int8_t SteamNetworkingIdentity_ParseString( SteamNetworkingIdentity *, const char * ) = 0;
     virtual ~u_ISteamNetworkingUtils_SteamNetworkingUtils003(  ) = 0;
 #endif /* __cplusplus */
 };
@@ -5963,7 +5963,7 @@ struct u_ISteamNetworkingSockets_SteamNetworkingSockets008
     virtual uint32_t CreateListenSocketIP( const SteamNetworkingIPAddr *, int32_t, const SteamNetworkingConfigValue_t * ) = 0;
     virtual uint32_t ConnectByIPAddress( const SteamNetworkingIPAddr *, int32_t, const SteamNetworkingConfigValue_t * ) = 0;
     virtual uint32_t CreateListenSocketP2P( int32_t, int32_t, const SteamNetworkingConfigValue_t * ) = 0;
-    virtual uint32_t ConnectP2P( const SteamNetworkingIdentity_144 *, int32_t, int32_t, const SteamNetworkingConfigValue_t * ) = 0;
+    virtual uint32_t ConnectP2P( const SteamNetworkingIdentity *, int32_t, int32_t, const SteamNetworkingConfigValue_t * ) = 0;
     virtual uint32_t AcceptConnection( uint32_t ) = 0;
     virtual int8_t CloseConnection( uint32_t, int32_t, const char *, int8_t ) = 0;
     virtual int8_t CloseListenSocket( uint32_t ) = 0;
@@ -5979,8 +5979,8 @@ struct u_ISteamNetworkingSockets_SteamNetworkingSockets008
     virtual int8_t GetQuickConnectionStatus( uint32_t, SteamNetworkingQuickConnectionStatus * ) = 0;
     virtual int32_t GetDetailedConnectionStatus( uint32_t, char *, int32_t ) = 0;
     virtual int8_t GetListenSocketAddress( uint32_t, SteamNetworkingIPAddr * ) = 0;
-    virtual int8_t CreateSocketPair( uint32_t *, uint32_t *, int8_t, const SteamNetworkingIdentity_144 *, const SteamNetworkingIdentity_144 * ) = 0;
-    virtual int8_t GetIdentity( SteamNetworkingIdentity_144 * ) = 0;
+    virtual int8_t CreateSocketPair( uint32_t *, uint32_t *, int8_t, const SteamNetworkingIdentity *, const SteamNetworkingIdentity * ) = 0;
+    virtual int8_t GetIdentity( SteamNetworkingIdentity * ) = 0;
     virtual uint32_t InitAuthentication(  ) = 0;
     virtual uint32_t GetAuthenticationStatus( SteamNetAuthenticationStatus_t * ) = 0;
     virtual uint32_t CreatePollGroup(  ) = 0;
@@ -5988,14 +5988,14 @@ struct u_ISteamNetworkingSockets_SteamNetworkingSockets008
     virtual int8_t SetConnectionPollGroup( uint32_t, uint32_t ) = 0;
     virtual int32_t ReceiveMessagesOnPollGroup( uint32_t, u_SteamNetworkingMessage_t_147 **, int32_t ) = 0;
     virtual int8_t ReceivedRelayAuthTicket( const void *, int32_t, SteamDatagramRelayAuthTicket * ) = 0;
-    virtual int32_t FindRelayAuthTicketForServer( const SteamNetworkingIdentity_144 *, int32_t, SteamDatagramRelayAuthTicket * ) = 0;
-    virtual uint32_t ConnectToHostedDedicatedServer( const SteamNetworkingIdentity_144 *, int32_t, int32_t, const SteamNetworkingConfigValue_t * ) = 0;
+    virtual int32_t FindRelayAuthTicketForServer( const SteamNetworkingIdentity *, int32_t, SteamDatagramRelayAuthTicket * ) = 0;
+    virtual uint32_t ConnectToHostedDedicatedServer( const SteamNetworkingIdentity *, int32_t, int32_t, const SteamNetworkingConfigValue_t * ) = 0;
     virtual uint16_t GetHostedDedicatedServerPort(  ) = 0;
     virtual uint32_t GetHostedDedicatedServerPOPID(  ) = 0;
     virtual uint32_t GetHostedDedicatedServerAddress( SteamDatagramHostedAddress * ) = 0;
     virtual uint32_t CreateHostedDedicatedServerListenSocket( int32_t, int32_t, const SteamNetworkingConfigValue_t * ) = 0;
     virtual uint32_t GetGameCoordinatorServerLogin( SteamDatagramGameCoordinatorServerLogin *, int32_t *, void * ) = 0;
-    virtual uint32_t ConnectP2PCustomSignaling( u_ISteamNetworkingConnectionCustomSignaling *, const SteamNetworkingIdentity_144 *, int32_t, const SteamNetworkingConfigValue_t * ) = 0;
+    virtual uint32_t ConnectP2PCustomSignaling( u_ISteamNetworkingConnectionCustomSignaling *, const SteamNetworkingIdentity *, int32_t, const SteamNetworkingConfigValue_t * ) = 0;
     virtual int8_t ReceivedP2PCustomSignal( const void *, int32_t, u_ISteamNetworkingCustomSignalingRecvContext * ) = 0;
     virtual int8_t GetCertificateRequest( int32_t *, void *, char (*)[1024] ) = 0;
     virtual int8_t SetCertificate( const void *, int32_t, char (*)[1024] ) = 0;
@@ -6140,12 +6140,12 @@ struct u_ISteamUtils_SteamUtils010
 struct u_ISteamNetworkingMessages_SteamNetworkingMessages002
 {
 #ifdef __cplusplus
-    virtual uint32_t SendMessageToUser( const SteamNetworkingIdentity_144 *, const void *, uint32_t, int32_t, int32_t ) = 0;
+    virtual uint32_t SendMessageToUser( const SteamNetworkingIdentity *, const void *, uint32_t, int32_t, int32_t ) = 0;
     virtual int32_t ReceiveMessagesOnChannel( int32_t, u_SteamNetworkingMessage_t_153a **, int32_t ) = 0;
-    virtual int8_t AcceptSessionWithUser( const SteamNetworkingIdentity_144 * ) = 0;
-    virtual int8_t CloseSessionWithUser( const SteamNetworkingIdentity_144 * ) = 0;
-    virtual int8_t CloseChannelWithUser( const SteamNetworkingIdentity_144 *, int32_t ) = 0;
-    virtual uint32_t GetSessionConnectionInfo( const SteamNetworkingIdentity_144 *, SteamNetConnectionInfo_t_153a *, SteamNetConnectionRealTimeStatus_t_164 * ) = 0;
+    virtual int8_t AcceptSessionWithUser( const SteamNetworkingIdentity * ) = 0;
+    virtual int8_t CloseSessionWithUser( const SteamNetworkingIdentity * ) = 0;
+    virtual int8_t CloseChannelWithUser( const SteamNetworkingIdentity *, int32_t ) = 0;
+    virtual uint32_t GetSessionConnectionInfo( const SteamNetworkingIdentity *, SteamNetConnectionInfo_t_153a *, SteamNetConnectionRealTimeStatus_t_164 * ) = 0;
 #endif /* __cplusplus */
 };
 
@@ -6155,7 +6155,7 @@ struct u_ISteamNetworkingSockets_SteamNetworkingSockets009
     virtual uint32_t CreateListenSocketIP( const SteamNetworkingIPAddr *, int32_t, const SteamNetworkingConfigValue_t * ) = 0;
     virtual uint32_t ConnectByIPAddress( const SteamNetworkingIPAddr *, int32_t, const SteamNetworkingConfigValue_t * ) = 0;
     virtual uint32_t CreateListenSocketP2P( int32_t, int32_t, const SteamNetworkingConfigValue_t * ) = 0;
-    virtual uint32_t ConnectP2P( const SteamNetworkingIdentity_144 *, int32_t, int32_t, const SteamNetworkingConfigValue_t * ) = 0;
+    virtual uint32_t ConnectP2P( const SteamNetworkingIdentity *, int32_t, int32_t, const SteamNetworkingConfigValue_t * ) = 0;
     virtual uint32_t AcceptConnection( uint32_t ) = 0;
     virtual int8_t CloseConnection( uint32_t, int32_t, const char *, int8_t ) = 0;
     virtual int8_t CloseListenSocket( uint32_t ) = 0;
@@ -6171,8 +6171,8 @@ struct u_ISteamNetworkingSockets_SteamNetworkingSockets009
     virtual int8_t GetQuickConnectionStatus( uint32_t, SteamNetworkingQuickConnectionStatus * ) = 0;
     virtual int32_t GetDetailedConnectionStatus( uint32_t, char *, int32_t ) = 0;
     virtual int8_t GetListenSocketAddress( uint32_t, SteamNetworkingIPAddr * ) = 0;
-    virtual int8_t CreateSocketPair( uint32_t *, uint32_t *, int8_t, const SteamNetworkingIdentity_144 *, const SteamNetworkingIdentity_144 * ) = 0;
-    virtual int8_t GetIdentity( SteamNetworkingIdentity_144 * ) = 0;
+    virtual int8_t CreateSocketPair( uint32_t *, uint32_t *, int8_t, const SteamNetworkingIdentity *, const SteamNetworkingIdentity * ) = 0;
+    virtual int8_t GetIdentity( SteamNetworkingIdentity * ) = 0;
     virtual uint32_t InitAuthentication(  ) = 0;
     virtual uint32_t GetAuthenticationStatus( SteamNetAuthenticationStatus_t * ) = 0;
     virtual uint32_t CreatePollGroup(  ) = 0;
@@ -6180,14 +6180,14 @@ struct u_ISteamNetworkingSockets_SteamNetworkingSockets009
     virtual int8_t SetConnectionPollGroup( uint32_t, uint32_t ) = 0;
     virtual int32_t ReceiveMessagesOnPollGroup( uint32_t, u_SteamNetworkingMessage_t_147 **, int32_t ) = 0;
     virtual int8_t ReceivedRelayAuthTicket( const void *, int32_t, SteamDatagramRelayAuthTicket * ) = 0;
-    virtual int32_t FindRelayAuthTicketForServer( const SteamNetworkingIdentity_144 *, int32_t, SteamDatagramRelayAuthTicket * ) = 0;
-    virtual uint32_t ConnectToHostedDedicatedServer( const SteamNetworkingIdentity_144 *, int32_t, int32_t, const SteamNetworkingConfigValue_t * ) = 0;
+    virtual int32_t FindRelayAuthTicketForServer( const SteamNetworkingIdentity *, int32_t, SteamDatagramRelayAuthTicket * ) = 0;
+    virtual uint32_t ConnectToHostedDedicatedServer( const SteamNetworkingIdentity *, int32_t, int32_t, const SteamNetworkingConfigValue_t * ) = 0;
     virtual uint16_t GetHostedDedicatedServerPort(  ) = 0;
     virtual uint32_t GetHostedDedicatedServerPOPID(  ) = 0;
     virtual uint32_t GetHostedDedicatedServerAddress( SteamDatagramHostedAddress * ) = 0;
     virtual uint32_t CreateHostedDedicatedServerListenSocket( int32_t, int32_t, const SteamNetworkingConfigValue_t * ) = 0;
     virtual uint32_t GetGameCoordinatorServerLogin( SteamDatagramGameCoordinatorServerLogin *, int32_t *, void * ) = 0;
-    virtual uint32_t ConnectP2PCustomSignaling( void /*ISteamNetworkingConnectionSignaling*/ *, const SteamNetworkingIdentity_144 *, int32_t, int32_t, const SteamNetworkingConfigValue_t * ) = 0;
+    virtual uint32_t ConnectP2PCustomSignaling( void /*ISteamNetworkingConnectionSignaling*/ *, const SteamNetworkingIdentity *, int32_t, int32_t, const SteamNetworkingConfigValue_t * ) = 0;
     virtual int8_t ReceivedP2PCustomSignal( const void *, int32_t, void /*ISteamNetworkingSignalingRecvContext*/ * ) = 0;
     virtual int8_t GetCertificateRequest( int32_t *, void *, char (*)[1024] ) = 0;
     virtual int8_t SetCertificate( const void *, int32_t, char (*)[1024] ) = 0;
@@ -6687,7 +6687,7 @@ struct u_ISteamNetworkingSockets_SteamNetworkingSockets012
     virtual uint32_t CreateListenSocketIP( const SteamNetworkingIPAddr *, int32_t, const SteamNetworkingConfigValue_t * ) = 0;
     virtual uint32_t ConnectByIPAddress( const SteamNetworkingIPAddr *, int32_t, const SteamNetworkingConfigValue_t * ) = 0;
     virtual uint32_t CreateListenSocketP2P( int32_t, int32_t, const SteamNetworkingConfigValue_t * ) = 0;
-    virtual uint32_t ConnectP2P( const SteamNetworkingIdentity_144 *, int32_t, int32_t, const SteamNetworkingConfigValue_t * ) = 0;
+    virtual uint32_t ConnectP2P( const SteamNetworkingIdentity *, int32_t, int32_t, const SteamNetworkingConfigValue_t * ) = 0;
     virtual uint32_t AcceptConnection( uint32_t ) = 0;
     virtual int8_t CloseConnection( uint32_t, int32_t, const char *, int8_t ) = 0;
     virtual int8_t CloseListenSocket( uint32_t ) = 0;
@@ -6703,9 +6703,9 @@ struct u_ISteamNetworkingSockets_SteamNetworkingSockets012
     virtual uint32_t GetConnectionRealTimeStatus( uint32_t, SteamNetConnectionRealTimeStatus_t_164 *, int32_t, SteamNetConnectionRealTimeLaneStatus_t * ) = 0;
     virtual int32_t GetDetailedConnectionStatus( uint32_t, char *, int32_t ) = 0;
     virtual int8_t GetListenSocketAddress( uint32_t, SteamNetworkingIPAddr * ) = 0;
-    virtual int8_t CreateSocketPair( uint32_t *, uint32_t *, int8_t, const SteamNetworkingIdentity_144 *, const SteamNetworkingIdentity_144 * ) = 0;
+    virtual int8_t CreateSocketPair( uint32_t *, uint32_t *, int8_t, const SteamNetworkingIdentity *, const SteamNetworkingIdentity * ) = 0;
     virtual uint32_t ConfigureConnectionLanes( uint32_t, int32_t, const int32_t *, const uint16_t * ) = 0;
-    virtual int8_t GetIdentity( SteamNetworkingIdentity_144 * ) = 0;
+    virtual int8_t GetIdentity( SteamNetworkingIdentity * ) = 0;
     virtual uint32_t InitAuthentication(  ) = 0;
     virtual uint32_t GetAuthenticationStatus( SteamNetAuthenticationStatus_t * ) = 0;
     virtual uint32_t CreatePollGroup(  ) = 0;
@@ -6713,18 +6713,18 @@ struct u_ISteamNetworkingSockets_SteamNetworkingSockets012
     virtual int8_t SetConnectionPollGroup( uint32_t, uint32_t ) = 0;
     virtual int32_t ReceiveMessagesOnPollGroup( uint32_t, u_SteamNetworkingMessage_t_153a **, int32_t ) = 0;
     virtual int8_t ReceivedRelayAuthTicket( const void *, int32_t, SteamDatagramRelayAuthTicket * ) = 0;
-    virtual int32_t FindRelayAuthTicketForServer( const SteamNetworkingIdentity_144 *, int32_t, SteamDatagramRelayAuthTicket * ) = 0;
-    virtual uint32_t ConnectToHostedDedicatedServer( const SteamNetworkingIdentity_144 *, int32_t, int32_t, const SteamNetworkingConfigValue_t * ) = 0;
+    virtual int32_t FindRelayAuthTicketForServer( const SteamNetworkingIdentity *, int32_t, SteamDatagramRelayAuthTicket * ) = 0;
+    virtual uint32_t ConnectToHostedDedicatedServer( const SteamNetworkingIdentity *, int32_t, int32_t, const SteamNetworkingConfigValue_t * ) = 0;
     virtual uint16_t GetHostedDedicatedServerPort(  ) = 0;
     virtual uint32_t GetHostedDedicatedServerPOPID(  ) = 0;
     virtual uint32_t GetHostedDedicatedServerAddress( SteamDatagramHostedAddress * ) = 0;
     virtual uint32_t CreateHostedDedicatedServerListenSocket( int32_t, int32_t, const SteamNetworkingConfigValue_t * ) = 0;
     virtual uint32_t GetGameCoordinatorServerLogin( SteamDatagramGameCoordinatorServerLogin *, int32_t *, void * ) = 0;
-    virtual uint32_t ConnectP2PCustomSignaling( void /*ISteamNetworkingConnectionSignaling*/ *, const SteamNetworkingIdentity_144 *, int32_t, int32_t, const SteamNetworkingConfigValue_t * ) = 0;
+    virtual uint32_t ConnectP2PCustomSignaling( void /*ISteamNetworkingConnectionSignaling*/ *, const SteamNetworkingIdentity *, int32_t, int32_t, const SteamNetworkingConfigValue_t * ) = 0;
     virtual int8_t ReceivedP2PCustomSignal( const void *, int32_t, void /*ISteamNetworkingSignalingRecvContext*/ * ) = 0;
     virtual int8_t GetCertificateRequest( int32_t *, void *, char (*)[1024] ) = 0;
     virtual int8_t SetCertificate( const void *, int32_t, char (*)[1024] ) = 0;
-    virtual void ResetIdentity( const SteamNetworkingIdentity_144 * ) = 0;
+    virtual void ResetIdentity( const SteamNetworkingIdentity * ) = 0;
     virtual void RunCallbacks(  ) = 0;
     virtual int8_t BeginAsyncRequestFakeIP( int32_t ) = 0;
     virtual void GetFakeIP( int32_t, SteamNetworkingFakeIPResult_t * ) = 0;
@@ -6753,7 +6753,7 @@ struct u_ISteamNetworkingUtils_SteamNetworkingUtils004
     virtual int64_t GetLocalTimestamp(  ) = 0;
     virtual void SetDebugOutputFunction( uint32_t, void (*U_CDECL )(uint32_t, const char *) ) = 0;
     virtual uint32_t GetIPv4FakeIPType( uint32_t ) = 0;
-    virtual uint32_t GetRealIdentityForFakeIP( const SteamNetworkingIPAddr *, SteamNetworkingIdentity_144 * ) = 0;
+    virtual uint32_t GetRealIdentityForFakeIP( const SteamNetworkingIPAddr *, SteamNetworkingIdentity * ) = 0;
     virtual int8_t SetConfigValue( uint32_t, uint32_t, int32_t, uint32_t, const void * ) = 0;
     virtual uint32_t GetConfigValue( uint32_t, uint32_t, int32_t, uint32_t *, void *, uint32_t * ) = 0;
     virtual const char * GetConfigValueInfo( uint32_t, uint32_t *, uint32_t * ) = 0;
@@ -6761,8 +6761,8 @@ struct u_ISteamNetworkingUtils_SteamNetworkingUtils004
     virtual void SteamNetworkingIPAddr_ToString( const SteamNetworkingIPAddr *, char *, uint32_t, int8_t ) = 0;
     virtual int8_t SteamNetworkingIPAddr_ParseString( SteamNetworkingIPAddr *, const char * ) = 0;
     virtual uint32_t SteamNetworkingIPAddr_GetFakeIPType( const SteamNetworkingIPAddr * ) = 0;
-    virtual void SteamNetworkingIdentity_ToString( const SteamNetworkingIdentity_144 *, char *, uint32_t ) = 0;
-    virtual int8_t SteamNetworkingIdentity_ParseString( SteamNetworkingIdentity_144 *, const char * ) = 0;
+    virtual void SteamNetworkingIdentity_ToString( const SteamNetworkingIdentity *, char *, uint32_t ) = 0;
+    virtual int8_t SteamNetworkingIdentity_ParseString( SteamNetworkingIdentity *, const char * ) = 0;
     virtual ~u_ISteamNetworkingUtils_SteamNetworkingUtils004(  ) = 0;
 #endif /* __cplusplus */
 };
@@ -6793,7 +6793,7 @@ struct u_ISteamUser_SteamUser022
     virtual uint32_t GetVoice( int8_t, void *, uint32_t, uint32_t *, int8_t, void *, uint32_t, uint32_t *, uint32_t ) = 0;
     virtual uint32_t DecompressVoice( const void *, uint32_t, void *, uint32_t, uint32_t *, uint32_t ) = 0;
     virtual uint32_t GetVoiceOptimalSampleRate(  ) = 0;
-    virtual uint32_t GetAuthSessionTicket( void *, int32_t, uint32_t *, const SteamNetworkingIdentity_144 * ) = 0;
+    virtual uint32_t GetAuthSessionTicket( void *, int32_t, uint32_t *, const SteamNetworkingIdentity * ) = 0;
     virtual uint32_t BeginAuthSession( const void *, int32_t, CSteamID ) = 0;
     virtual void EndAuthSession( CSteamID ) = 0;
     virtual void CancelAuthTicket( uint32_t ) = 0;
@@ -6938,7 +6938,7 @@ struct u_ISteamGameServer_SteamGameServer015
     virtual void SetGameData( const char * ) = 0;
     virtual void SetRegion( const char * ) = 0;
     virtual void SetAdvertiseServerActive( int8_t ) = 0;
-    virtual uint32_t GetAuthSessionTicket( void *, int32_t, uint32_t *, const SteamNetworkingIdentity_144 * ) = 0;
+    virtual uint32_t GetAuthSessionTicket( void *, int32_t, uint32_t *, const SteamNetworkingIdentity * ) = 0;
     virtual uint32_t BeginAuthSession( const void *, int32_t, CSteamID ) = 0;
     virtual void EndAuthSession( CSteamID ) = 0;
     virtual void CancelAuthTicket( uint32_t ) = 0;
@@ -6976,7 +6976,7 @@ struct u_ISteamUser_SteamUser023
     virtual uint32_t GetVoice( int8_t, void *, uint32_t, uint32_t *, int8_t, void *, uint32_t, uint32_t *, uint32_t ) = 0;
     virtual uint32_t DecompressVoice( const void *, uint32_t, void *, uint32_t, uint32_t *, uint32_t ) = 0;
     virtual uint32_t GetVoiceOptimalSampleRate(  ) = 0;
-    virtual uint32_t GetAuthSessionTicket( void *, int32_t, uint32_t *, const SteamNetworkingIdentity_144 * ) = 0;
+    virtual uint32_t GetAuthSessionTicket( void *, int32_t, uint32_t *, const SteamNetworkingIdentity * ) = 0;
     virtual uint32_t GetAuthTicketForWebApi( const char * ) = 0;
     virtual uint32_t BeginAuthSession( const void *, int32_t, CSteamID ) = 0;
     virtual void EndAuthSession( CSteamID ) = 0;
@@ -7800,7 +7800,7 @@ struct u_ISteamNetworkingSockets_SteamNetworkingSockets013
     virtual uint32_t CreateListenSocketIP( const SteamNetworkingIPAddr *, int32_t, const SteamNetworkingConfigValue_t * ) = 0;
     virtual uint32_t ConnectByIPAddress( const SteamNetworkingIPAddr *, int32_t, const SteamNetworkingConfigValue_t * ) = 0;
     virtual uint32_t CreateListenSocketP2P( int32_t, int32_t, const SteamNetworkingConfigValue_t * ) = 0;
-    virtual uint32_t ConnectP2P( const SteamNetworkingIdentity_144 *, int32_t, int32_t, const SteamNetworkingConfigValue_t * ) = 0;
+    virtual uint32_t ConnectP2P( const SteamNetworkingIdentity *, int32_t, int32_t, const SteamNetworkingConfigValue_t * ) = 0;
     virtual uint32_t AcceptConnection( uint32_t ) = 0;
     virtual int8_t CloseConnection( uint32_t, int32_t, const char *, int8_t ) = 0;
     virtual int8_t CloseListenSocket( uint32_t ) = 0;
@@ -7816,9 +7816,9 @@ struct u_ISteamNetworkingSockets_SteamNetworkingSockets013
     virtual uint32_t GetConnectionRealTimeStatus( uint32_t, SteamNetConnectionRealTimeStatus_t_164 *, int32_t, SteamNetConnectionRealTimeLaneStatus_t * ) = 0;
     virtual int32_t GetDetailedConnectionStatus( uint32_t, char *, int32_t ) = 0;
     virtual int8_t GetListenSocketAddress( uint32_t, SteamNetworkingIPAddr * ) = 0;
-    virtual int8_t CreateSocketPair( uint32_t *, uint32_t *, int8_t, const SteamNetworkingIdentity_144 *, const SteamNetworkingIdentity_144 * ) = 0;
+    virtual int8_t CreateSocketPair( uint32_t *, uint32_t *, int8_t, const SteamNetworkingIdentity *, const SteamNetworkingIdentity * ) = 0;
     virtual uint32_t ConfigureConnectionLanes( uint32_t, int32_t, const int32_t *, const uint16_t * ) = 0;
-    virtual int8_t GetIdentity( SteamNetworkingIdentity_144 * ) = 0;
+    virtual int8_t GetIdentity( SteamNetworkingIdentity * ) = 0;
     virtual uint32_t InitAuthentication(  ) = 0;
     virtual uint32_t GetAuthenticationStatus( SteamNetAuthenticationStatus_t * ) = 0;
     virtual uint32_t CreatePollGroup(  ) = 0;
@@ -7826,18 +7826,18 @@ struct u_ISteamNetworkingSockets_SteamNetworkingSockets013
     virtual int8_t SetConnectionPollGroup( uint32_t, uint32_t ) = 0;
     virtual int32_t ReceiveMessagesOnPollGroup( uint32_t, u_SteamNetworkingMessage_t_153a **, int32_t ) = 0;
     virtual int8_t ReceivedRelayAuthTicket( const void *, int32_t, SteamDatagramRelayAuthTicket * ) = 0;
-    virtual int32_t FindRelayAuthTicketForServer( const SteamNetworkingIdentity_144 *, int32_t, SteamDatagramRelayAuthTicket * ) = 0;
-    virtual uint32_t ConnectToHostedDedicatedServer( const SteamNetworkingIdentity_144 *, int32_t, int32_t, const SteamNetworkingConfigValue_t * ) = 0;
+    virtual int32_t FindRelayAuthTicketForServer( const SteamNetworkingIdentity *, int32_t, SteamDatagramRelayAuthTicket * ) = 0;
+    virtual uint32_t ConnectToHostedDedicatedServer( const SteamNetworkingIdentity *, int32_t, int32_t, const SteamNetworkingConfigValue_t * ) = 0;
     virtual uint16_t GetHostedDedicatedServerPort(  ) = 0;
     virtual uint32_t GetHostedDedicatedServerPOPID(  ) = 0;
     virtual uint32_t GetHostedDedicatedServerAddress( SteamDatagramHostedAddress * ) = 0;
     virtual uint32_t CreateHostedDedicatedServerListenSocket( int32_t, int32_t, const SteamNetworkingConfigValue_t * ) = 0;
     virtual uint32_t GetGameCoordinatorServerLogin( SteamDatagramGameCoordinatorServerLogin *, int32_t *, void * ) = 0;
-    virtual uint32_t ConnectP2PCustomSignaling( void /*ISteamNetworkingConnectionSignaling*/ *, const SteamNetworkingIdentity_144 *, int32_t, int32_t, const SteamNetworkingConfigValue_t * ) = 0;
+    virtual uint32_t ConnectP2PCustomSignaling( void /*ISteamNetworkingConnectionSignaling*/ *, const SteamNetworkingIdentity *, int32_t, int32_t, const SteamNetworkingConfigValue_t * ) = 0;
     virtual int8_t ReceivedP2PCustomSignal( const void *, int32_t, void /*ISteamNetworkingSignalingRecvContext*/ * ) = 0;
     virtual int8_t GetCertificateRequest( int32_t *, void *, char (*)[1024] ) = 0;
     virtual int8_t SetCertificate( const void *, int32_t, char (*)[1024] ) = 0;
-    virtual void ResetIdentity( const SteamNetworkingIdentity_144 * ) = 0;
+    virtual void ResetIdentity( const SteamNetworkingIdentity * ) = 0;
     virtual void RunCallbacks(  ) = 0;
     virtual int8_t BeginAsyncRequestFakeIP( int32_t ) = 0;
     virtual void GetFakeIP( int32_t, SteamNetworkingFakeIPResult_t * ) = 0;

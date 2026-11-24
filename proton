@@ -551,6 +551,14 @@ def get_replace_reg_value(file, key, name, new_value=None):
 
     return old_value
 
+def remove_file_and_empty_parent_dirs(path):
+    if file_exists(path, follow_symlinks=False):
+        os.remove(path)
+        parent = os.path.dirname(path)
+        while len(os.listdir(parent)) == 0:
+            os.rmdir(parent)
+            parent = os.path.dirname(parent)
+
 class Proton:
     def __init__(self, base_dir):
         self.base_dir = base_dir + "/"
@@ -1244,18 +1252,20 @@ class CompatData:
                     if file_exists(nvapi32_dll + '.debug', follow_symlinks=False):
                         os.unlink(nvapi32_dll + '.debug')
 
-                # Try to detect known DLLs that ship with the NVIDIA Linux Driver
-                # and add them into the prefix
+                # Try to detect known DLLs and executables that ship with
+                # the NVIDIA Linux Driver and add them into the prefix
                 if g_session.nvidia_wine_dll_dir:
-                    for dll in ["_nvngx.dll", "nvngx.dll"]:
-                        try_copy(g_session.nvidia_wine_dll_dir + "/" + dll,
+                    for f in ["_nvngx.dll", "nvngx.dll", "nvngx_update.exe"]:
+                        try_copy(g_session.nvidia_wine_dll_dir + "/" + f,
                                  "drive_c/windows/system32",
                                  optional=True,
                                  prefix=self.prefix_dir,
                                  track_file=tracked_files,
                                  link_debug=True)
 
-                intc_store = "drive_c/windows/system32/DriverStore/FileRepository/igd_faux.inf_1"
+                remove_file_and_empty_parent_dirs(os.path.join(self.prefix_dir,
+                                                               "drive_c/windows/system32/DriverStore/FileRepository/igd_faux.inf_1/igdext64.dll"))
+                intc_store = "drive_c/windows/system32/driverstore/filerepository/igd_faux.inf_1"
                 makedirs(os.path.join(self.prefix_dir, intc_store))
                 try_copy(g_proton.arch_pe_dir("wine/igdext", False) + "igdext64.dll",
                          intc_store,
@@ -1444,6 +1454,7 @@ def default_compat_config():
                 "1026680", #FINAL FANTASY VIII - REMASTERED
                 "3513350", #Wuthering Waves
                 "3837340", #FINAL FANTASY VII
+                "3285880", #MONOMOOON
                 ]:
             ret.add("noxalia")
 
@@ -1588,6 +1599,12 @@ class Session:
                     "4005300",
                     ]:
                 self.env["PROTON_USE_WOW64"] = "1"
+
+        if "WINE_IGNORE_STARTUP_SHOW_WINDOW" not in self.env and "SteamGameId" in self.env:
+            if self.env["SteamGameId"] in [
+                    "1361210",
+                    ]:
+                self.env["WINE_IGNORE_STARTUP_SHOW_WINDOW"] = "1"
 
         self.env.pop("WINEARCH", "")
         if "PROTON_USE_WOW64" in self.env and self.env["PROTON_USE_WOW64"] == "1" and platform.machine() == "x86_64":
@@ -1902,6 +1919,7 @@ class Session:
                     "939960", #Far Cry New Dawn
                     "250900", #The Binding of Isaac: Rebirth
                     "297860", #Split/Second
+                    "331600", #ONE PIECE PIRATE WARRIORS 3
                     ]:
                 self.env["PROTON_SPOOF_STEAMINPUT_VIDPID"] = "1"
 

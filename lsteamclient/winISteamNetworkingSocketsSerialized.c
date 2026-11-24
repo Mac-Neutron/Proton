@@ -409,7 +409,7 @@ int8_t __thiscall winISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSer
     return params._ret;
 }
 
-int8_t __thiscall winISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized005_AllowDirectConnectToPeer(struct w_iface *_this, const SteamNetworkingIdentity_144 *identityRemote)
+int8_t __thiscall winISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized005_AllowDirectConnectToPeer(struct w_iface *_this, const SteamNetworkingIdentity *identityRemote)
 {
     struct ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized005_AllowDirectConnectToPeer_params params =
     {
