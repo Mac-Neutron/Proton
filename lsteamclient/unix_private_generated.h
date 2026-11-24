@@ -5386,6 +5386,23 @@ struct u_ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized003
 #endif /* __cplusplus */
 };
 
+struct u_ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized005
+{
+#ifdef __cplusplus
+    virtual void SendP2PRendezvous( CSteamID, uint32_t, const void *, uint32_t ) = 0;
+    virtual void SendP2PConnectionFailure( CSteamID, uint32_t, uint32_t, const char * ) = 0;
+    virtual uint64_t GetCertAsync(  ) = 0;
+    virtual int32_t GetNetworkConfigJSON( void *, uint32_t, const char * ) = 0;
+    virtual void CacheRelayTicket( const void *, uint32_t ) = 0;
+    virtual uint32_t GetCachedRelayTicketCount(  ) = 0;
+    virtual int32_t GetCachedRelayTicket( uint32_t, void *, uint32_t ) = 0;
+    virtual void PostConnectionStateMsg( const void *, uint32_t ) = 0;
+    virtual int8_t GetSTUNServer( int32_t, char *, uint32_t ) = 0;
+    virtual int8_t AllowDirectConnectToPeer( const SteamNetworkingIdentity_144 * ) = 0;
+    virtual int8_t BeginAsyncRequestFakeIP( int32_t ) = 0;
+#endif /* __cplusplus */
+};
+
 struct u_ISteamNetworkingSockets_SteamNetworkingSockets002
 {
 #ifdef __cplusplus
@@ -19364,6 +19381,28 @@ NTSTATUS ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized003_G
 NTSTATUS wow64_ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized003_GetCachedRelayTicket( void * );
 NTSTATUS ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized003_PostConnectionStateMsg( void * );
 NTSTATUS wow64_ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized003_PostConnectionStateMsg( void * );
+NTSTATUS ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized005_SendP2PRendezvous( void * );
+NTSTATUS wow64_ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized005_SendP2PRendezvous( void * );
+NTSTATUS ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized005_SendP2PConnectionFailure( void * );
+NTSTATUS wow64_ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized005_SendP2PConnectionFailure( void * );
+NTSTATUS ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized005_GetCertAsync( void * );
+NTSTATUS wow64_ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized005_GetCertAsync( void * );
+NTSTATUS ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized005_GetNetworkConfigJSON( void * );
+NTSTATUS wow64_ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized005_GetNetworkConfigJSON( void * );
+NTSTATUS ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized005_CacheRelayTicket( void * );
+NTSTATUS wow64_ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized005_CacheRelayTicket( void * );
+NTSTATUS ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized005_GetCachedRelayTicketCount( void * );
+NTSTATUS wow64_ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized005_GetCachedRelayTicketCount( void * );
+NTSTATUS ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized005_GetCachedRelayTicket( void * );
+NTSTATUS wow64_ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized005_GetCachedRelayTicket( void * );
+NTSTATUS ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized005_PostConnectionStateMsg( void * );
+NTSTATUS wow64_ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized005_PostConnectionStateMsg( void * );
+NTSTATUS ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized005_GetSTUNServer( void * );
+NTSTATUS wow64_ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized005_GetSTUNServer( void * );
+NTSTATUS ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized005_AllowDirectConnectToPeer( void * );
+NTSTATUS wow64_ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized005_AllowDirectConnectToPeer( void * );
+NTSTATUS ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized005_BeginAsyncRequestFakeIP( void * );
+NTSTATUS wow64_ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized005_BeginAsyncRequestFakeIP( void * );
 NTSTATUS ISteamNetworkingUtils_SteamNetworkingUtils001_GetLocalPingLocation( void * );
 NTSTATUS wow64_ISteamNetworkingUtils_SteamNetworkingUtils001_GetLocalPingLocation( void * );
 NTSTATUS ISteamNetworkingUtils_SteamNetworkingUtils001_EstimatePingTimeBetweenTwoLocations( void * );

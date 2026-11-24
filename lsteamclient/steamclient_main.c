@@ -51,6 +51,7 @@ static char temp_path_buffer[TEMP_PATH_BUFFER_LENGTH];
 static CRITICAL_SECTION steamclient_cs = { NULL, -1, 0, 0, 0, 0 };
 static HANDLE steam_overlay_event;
 static BOOL wsa_initialized;
+static HMODULE lsteamclient_module;
 
 BOOL WINAPI DllMain(HINSTANCE instance, DWORD reason, void *reserved)
 {
@@ -59,6 +60,7 @@ BOOL WINAPI DllMain(HINSTANCE instance, DWORD reason, void *reserved)
     switch (reason)
     {
         case DLL_PROCESS_ATTACH:
+            lsteamclient_module = instance;
             DisableThreadLibraryCalls(instance);
             steam_overlay_event = CreateEventA(NULL, TRUE, FALSE, "__wine_steamclient_GameOverlayActivated");
 #if defined(__x86_64__) || defined(__aarch64__)
@@ -98,6 +100,22 @@ static BYTE *alloc_start, *alloc_end;
 static int8_t allocated_from_steamclient_dll( void *ptr )
 {
     return (BYTE *)ptr >= alloc_start && (BYTE *)ptr < alloc_end;
+}
+
+static BOOL is_native_steamclient_mod(HMODULE mod)
+{
+    const IMAGE_DOS_HEADER *dos;
+
+    if (!mod || mod == lsteamclient_module)
+        return FALSE;
+
+    dos = (const IMAGE_DOS_HEADER *)mod;
+    if (dos->e_magic == IMAGE_DOS_SIGNATURE &&
+        dos->e_lfanew >= (LONG)(sizeof(IMAGE_DOS_HEADER) + 16) &&
+        !memcmp((const char *)mod + sizeof(IMAGE_DOS_HEADER), "Wine builtin DLL", 16))
+        return FALSE;
+
+    return TRUE;
 }
 
 static void *get_mem_from_steamclient_dll(size_t size, unsigned int version, void *vtbl)
@@ -150,15 +168,18 @@ static void *get_mem_from_steamclient_dll(size_t size, unsigned int version, voi
 
     if (!alloc_base)
     {
+        static const WCHAR steamclient64W[] = {'s','t','e','a','m','c','l','i','e','n','t','6','4','.','d','l','l',0};
         static const WCHAR steamclientW[] = {'s','t','e','a','m','c','l','i','e','n','t','.','d','l','l',0};
         const IMAGE_SECTION_HEADER *sec;
         const IMAGE_NT_HEADERS *nt;
         HMODULE mod;
 
-        if (!(mod = GetModuleHandleW(steamclientW)))
+        mod = GetModuleHandleW(steamclient64W);
+        if (!is_native_steamclient_mod(mod))
+            mod = GetModuleHandleW(steamclientW);
+        if (!is_native_steamclient_mod(mod))
         {
-            /* That is steamclient64.dll for x64 but no known use cases on x64.*/
-            WARN("Module not found, err %lu.\n", GetLastError());
+            WARN("Native steamclient module not found, err %lu.\n", GetLastError());
             alloc_base = error_ptr;
             return NULL;
         }
@@ -175,7 +196,7 @@ static void *get_mem_from_steamclient_dll(size_t size, unsigned int version, voi
             {
                 alloc_start = alloc_base = (BYTE *)mod + sec[i].VirtualAddress;
                 alloc_end = alloc_base + sec[i].SizeOfRawData;
-                if (alloc_end - alloc_start < sizeof(magic))
+                if (alloc_end - alloc_start < sizeof(void *))
                 {
                     ERR(".data section is too small.\n");
                     alloc_base = error_ptr;
@@ -183,7 +204,7 @@ static void *get_mem_from_steamclient_dll(size_t size, unsigned int version, voi
                 }
                 TRACE("Found .data section, start %p, end %p.\n", alloc_base, alloc_end);
                 *(unsigned int *)alloc_base = magic;
-                alloc_base += sizeof(unsigned int);
+                alloc_base += sizeof(void *);
                 break;
             }
         }
@@ -256,13 +277,13 @@ void *alloc_vtable(void *vtable, unsigned int method_count, const char *iface_ve
     if (i == ARRAY_SIZE(iface_names))
         return vtable;
 
-    if (!(ret = get_mem_from_steamclient_dll(method_count * sizeof(void *), 0, vtable)))
+    if (!(ret = get_mem_from_steamclient_dll((method_count + 1) * sizeof(void *), 0, vtable)))
         return vtable;
 
     TRACE("iface %s, method_count %d, allocating from module.\n", iface_version, method_count);
 
-    memcpy(ret, vtable, method_count * sizeof(void *));
-    return ret;
+    memcpy(ret, (const char *)vtable - sizeof(void *), (method_count + 1) * sizeof(void *));
+    return ret + sizeof(void *);
 }
 
 struct steamclient_interface
@@ -629,6 +650,6 @@ void CDECL Steam_NotifyMissingInterface( int32_t hSteamPipe, const char *pchVers
 
 void steamclient_init_registry(void)
 {
-    load_steamclient();
+    if (!load_steamclient()) return;
     STEAMCLIENT_CALL( steamclient_init_registry, NULL );
 }

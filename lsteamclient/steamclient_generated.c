@@ -187,6 +187,7 @@ static const struct { const char *iface_version; iface_constructor ctor; } const
     {"SteamNetworkingSocketsSerialized002", &create_winISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized002},
     {"SteamNetworkingSocketsSerialized001", &create_winISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized002}, /* alias */
     {"SteamNetworkingSocketsSerialized003", &create_winISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized003},
+    {"SteamNetworkingSocketsSerialized005", &create_winISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized005},
     {"SteamNetworkingUtils001", &create_winISteamNetworkingUtils_SteamNetworkingUtils001},
     {"SteamNetworkingUtils002", &create_winISteamNetworkingUtils_SteamNetworkingUtils002},
     {"SteamNetworkingUtils003", &create_winISteamNetworkingUtils_SteamNetworkingUtils003},

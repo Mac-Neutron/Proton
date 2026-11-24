@@ -167,6 +167,7 @@ SOURCES = \
 	cppISteamNetworkingSockets_SteamNetworkingSockets013.cpp \
 	cppISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized002.cpp \
 	cppISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized003.cpp \
+	cppISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized005.cpp \
 	cppISteamNetworkingUtils_SteamNetworkingUtils001.cpp \
 	cppISteamNetworkingUtils_SteamNetworkingUtils002.cpp \
 	cppISteamNetworkingUtils_SteamNetworkingUtils003.cpp \

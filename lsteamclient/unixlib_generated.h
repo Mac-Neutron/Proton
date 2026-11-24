@@ -90545,6 +90545,176 @@ struct wow64_ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized0
     uint32_t cbMsg;
 };
 
+struct ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized005_SendP2PRendezvous_params
+{
+    struct u_iface u_iface;
+    CSteamID steamIDRemote;
+    uint32_t unConnectionIDSrc;
+    const void *pMsgRendezvous;
+    uint32_t cbRendezvous;
+};
+
+struct wow64_ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized005_SendP2PRendezvous_params
+{
+    struct u_iface u_iface;
+    CSteamID steamIDRemote;
+    uint32_t unConnectionIDSrc;
+    W32_PTR(const void *pMsgRendezvous, pMsgRendezvous, const void *);
+    uint32_t cbRendezvous;
+};
+
+struct ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized005_SendP2PConnectionFailure_params
+{
+    struct u_iface u_iface;
+    CSteamID steamIDRemote;
+    uint32_t unConnectionIDDest;
+    uint32_t nReason;
+    const char *pszReason;
+};
+
+struct wow64_ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized005_SendP2PConnectionFailure_params
+{
+    struct u_iface u_iface;
+    CSteamID steamIDRemote;
+    uint32_t unConnectionIDDest;
+    uint32_t nReason;
+    W32_PTR(const char *pszReason, pszReason, const char *);
+};
+
+struct ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized005_GetCertAsync_params
+{
+    struct u_iface u_iface;
+    uint64_t _ret;
+};
+
+struct wow64_ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized005_GetCertAsync_params
+{
+    struct u_iface u_iface;
+    uint64_t _ret;
+};
+
+struct ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized005_GetNetworkConfigJSON_params
+{
+    struct u_iface u_iface;
+    int32_t _ret;
+    void *buf;
+    uint32_t cbBuf;
+    const char *pszLauncherPartner;
+};
+
+struct wow64_ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized005_GetNetworkConfigJSON_params
+{
+    struct u_iface u_iface;
+    int32_t _ret;
+    W32_PTR(void *buf, buf, void *);
+    uint32_t cbBuf;
+    W32_PTR(const char *pszLauncherPartner, pszLauncherPartner, const char *);
+};
+
+struct ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized005_CacheRelayTicket_params
+{
+    struct u_iface u_iface;
+    const void *pTicket;
+    uint32_t cbTicket;
+};
+
+struct wow64_ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized005_CacheRelayTicket_params
+{
+    struct u_iface u_iface;
+    W32_PTR(const void *pTicket, pTicket, const void *);
+    uint32_t cbTicket;
+};
+
+struct ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized005_GetCachedRelayTicketCount_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+};
+
+struct wow64_ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized005_GetCachedRelayTicketCount_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+};
+
+struct ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized005_GetCachedRelayTicket_params
+{
+    struct u_iface u_iface;
+    int32_t _ret;
+    uint32_t idxTicket;
+    void *buf;
+    uint32_t cbBuf;
+};
+
+struct wow64_ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized005_GetCachedRelayTicket_params
+{
+    struct u_iface u_iface;
+    int32_t _ret;
+    uint32_t idxTicket;
+    W32_PTR(void *buf, buf, void *);
+    uint32_t cbBuf;
+};
+
+struct ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized005_PostConnectionStateMsg_params
+{
+    struct u_iface u_iface;
+    const void *pMsg;
+    uint32_t cbMsg;
+};
+
+struct wow64_ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized005_PostConnectionStateMsg_params
+{
+    struct u_iface u_iface;
+    W32_PTR(const void *pMsg, pMsg, const void *);
+    uint32_t cbMsg;
+};
+
+struct ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized005_GetSTUNServer_params
+{
+    struct u_iface u_iface;
+    int8_t _ret;
+    int32_t iServer;
+    char *buf;
+    uint32_t cbBuf;
+};
+
+struct wow64_ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized005_GetSTUNServer_params
+{
+    struct u_iface u_iface;
+    int8_t _ret;
+    int32_t iServer;
+    W32_PTR(char *buf, buf, char *);
+    uint32_t cbBuf;
+};
+
+struct ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized005_AllowDirectConnectToPeer_params
+{
+    struct u_iface u_iface;
+    int8_t _ret;
+    const SteamNetworkingIdentity_144 *identityRemote;
+};
+
+struct wow64_ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized005_AllowDirectConnectToPeer_params
+{
+    struct u_iface u_iface;
+    int8_t _ret;
+    W32_PTR(const SteamNetworkingIdentity_144 *identityRemote, identityRemote, const SteamNetworkingIdentity_144 *);
+};
+
+struct ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized005_BeginAsyncRequestFakeIP_params
+{
+    struct u_iface u_iface;
+    int8_t _ret;
+    int32_t nNumPorts;
+};
+
+struct wow64_ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized005_BeginAsyncRequestFakeIP_params
+{
+    struct u_iface u_iface;
+    int8_t _ret;
+    int32_t nNumPorts;
+};
+
 struct ISteamNetworkingUtils_SteamNetworkingUtils001_GetLocalPingLocation_params
 {
     struct u_iface u_iface;
@@ -107784,6 +107954,17 @@ enum unix_funcs
     unix_ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized003_GetCachedRelayTicketCount,
     unix_ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized003_GetCachedRelayTicket,
     unix_ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized003_PostConnectionStateMsg,
+    unix_ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized005_SendP2PRendezvous,
+    unix_ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized005_SendP2PConnectionFailure,
+    unix_ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized005_GetCertAsync,
+    unix_ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized005_GetNetworkConfigJSON,
+    unix_ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized005_CacheRelayTicket,
+    unix_ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized005_GetCachedRelayTicketCount,
+    unix_ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized005_GetCachedRelayTicket,
+    unix_ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized005_PostConnectionStateMsg,
+    unix_ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized005_GetSTUNServer,
+    unix_ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized005_AllowDirectConnectToPeer,
+    unix_ISteamNetworkingSocketsSerialized_SteamNetworkingSocketsSerialized005_BeginAsyncRequestFakeIP,
     unix_ISteamNetworkingUtils_SteamNetworkingUtils001_GetLocalPingLocation,
     unix_ISteamNetworkingUtils_SteamNetworkingUtils001_EstimatePingTimeBetweenTwoLocations,
     unix_ISteamNetworkingUtils_SteamNetworkingUtils001_EstimatePingTimeFromLocalHost,

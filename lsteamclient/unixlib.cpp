@@ -6,6 +6,7 @@
 #include <pthread.h>
 #include <stdlib.h>
 #include <dlfcn.h>
+#include <atomic>
 #include <unordered_map>
 #include <vector>
 
@@ -327,6 +328,72 @@ static void (*p_Steam_ReleaseThreadLocalMemory)( int );
 static bool (*p_Steam_IsKnownInterface)( const char * );
 static void (*p_Steam_NotifyMissingInterface)( int32_t, const char * );
 
+#ifdef __APPLE__
+typedef void (*mn_overlay_shim_set_active_fn)( int );
+static std::atomic<mn_overlay_shim_set_active_fn> p_mn_overlay_shim_set_active{ nullptr };
+static pthread_once_t overlay_once = PTHREAD_ONCE_INIT;
+
+static void load_overlay_libraries( void )
+{
+    const char *shim = getenv( "MACNEUTRON_OVERLAY_SHIM" );
+    const char *insert;
+    void (*install)( void );
+
+    if (!shim || !shim[0]) return;
+
+    if (!dlopen( shim, RTLD_NOLOAD ))
+    {
+        if (!dlopen( shim, RTLD_NOW | RTLD_GLOBAL ))
+        {
+            WARN( "Unable to load overlay shim %s: %s\n", debugstr_a(shim), dlerror() );
+            return;
+        }
+        TRACE( "Loaded overlay shim %s\n", debugstr_a(shim) );
+    }
+
+    insert = getenv( "STEAM_DYLD_INSERT_LIBRARIES" );
+    if (insert && insert[0])
+    {
+        const char *p = insert;
+        while (*p)
+        {
+            const char *colon = strchr( p, ':' );
+            size_t len = colon ? (size_t)(colon - p) : strlen( p );
+            if (len > 0 && len < PATH_MAX)
+            {
+                char entry[PATH_MAX];
+                const char *slash, *base;
+
+                memcpy( entry, p, len );
+                entry[len] = '\0';
+                slash = strrchr( entry, '/' );
+                base = slash ? slash + 1 : entry;
+                if (strcmp( base, "gameoverlayrenderer.dylib" ) == 0)
+                {
+                    if (!dlopen( entry, RTLD_NOLOAD ))
+                    {
+                        if (!dlopen( entry, RTLD_NOW | RTLD_GLOBAL ))
+                            WARN( "Unable to load overlay library %s: %s\n", debugstr_a(entry), dlerror() );
+                        else
+                            TRACE( "Loaded overlay library %s\n", debugstr_a(entry) );
+                    }
+                }
+            }
+            if (!colon) break;
+            p = colon + 1;
+        }
+    }
+
+    install = (void (*)( void ))dlsym( RTLD_DEFAULT, "mn_overlay_shim_install" );
+    if (install)
+        install();
+
+    p_mn_overlay_shim_set_active.store(
+        (mn_overlay_shim_set_active_fn)dlsym( RTLD_DEFAULT, "mn_overlay_shim_set_active" ),
+        std::memory_order_release );
+}
+#endif
+
 template< typename Params >
 static NTSTATUS steamclient_Steam_BGetCallback( Params *params, bool wow64 )
 {
@@ -378,6 +445,16 @@ static NTSTATUS steamclient_callback_message_receive( Params *params, bool wow64
             WARN( "Unexpected SteamAPICallCompleted_t callback size %d, not doing API callback size conversion.", w_msg->m_cubParam );
         }
     }
+
+#ifdef __APPLE__
+    if (u_msg->m_iCallback == 0x14b && u_msg->m_cubParam >= 1 && u_msg->m_pubParam)
+    {
+        uint8_t active = *(const uint8_t *)u_msg->m_pubParam;
+        mn_overlay_shim_set_active_fn set_active = p_mn_overlay_shim_set_active.load( std::memory_order_acquire );
+        if (set_active)
+            set_active( active != 0 );
+    }
+#endif
 
     delete u_msg;
     return 0;
@@ -708,7 +785,14 @@ static NTSTATUS steamclient_init_registry( Params *params, bool wow64 )
     u_ISteamClient_SteamClient017 *client;
     int pipe, user, error;
 
+    if (!p_CreateInterface) return STATUS_DLL_NOT_FOUND;
+
     client = (u_ISteamClient_SteamClient017 *)p_CreateInterface( "SteamClient017", &error );
+    if (!client)
+    {
+        ERR( "Failed to get SteamClient017\n" );
+        return STATUS_DLL_NOT_FOUND;
+    }
     if (!(pipe = client->CreateSteamPipe()) || !(user = client->ConnectToGlobalUser( pipe )))
     {
         ERR( "Failed to connect to Steam\n" );
@@ -847,6 +931,14 @@ template< typename Params >
 static NTSTATUS steamclient_CreateInterface( Params *params, bool wow64 )
 {
     params->_ret = p_CreateInterface( params->name, params->return_code );
+#ifdef __APPLE__
+    if (params->_ret.handle)
+    {
+        const char *shim = getenv( "MACNEUTRON_OVERLAY_SHIM" );
+        if (shim && shim[0])
+            pthread_once( &overlay_once, load_overlay_libraries );
+    }
+#endif
     return 0;
 }
 
